@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Bank\Account;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Bank\Accounts\CreateAccountRequest;
 use Domain\Bank\Accounts\Application\Create\AccountCreateCommand;
 use Domain\Bank\Accounts\Application\List\AccountListQuery;
 use Domain\Shared\Infrastructure\Bus\Command\CommandBus;
@@ -23,7 +24,7 @@ class CreateController extends Controller
      * @param Request $request
      * @return void
      */
-    public function __invoke(Request $request)
+    public function __invoke(CreateAccountRequest $request)
     {
         $this->commandBus->dispatch(AccountCreateCommand::create(
             $request->input('owner_id'),
