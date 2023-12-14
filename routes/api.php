@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\Backoffice\Script\AllScriptGetController;
+use App\Http\Controllers\Bank\Account\CreateController;
+use App\Http\Controllers\Bank\Account\DeleteByArrayController;
+use App\Http\Controllers\Bank\Account\IndexController;
+use App\Http\Controllers\Bank\Account\ShowController;
 use App\Http\Controllers\Bank\AccountController;
 use App\Http\Controllers\Bank\TransactionController;
-use App\Http\Controllers\ScriptController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,10 +28,15 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::delete('/accounts', [AccountController::class, 'deleteByArray']);
+// Route::delete('/accounts', [AccountController::class, 'deleteByArray']);
+Route::get('/accounts', IndexController::class, '__invoke');
+Route::get('/accounts/{id}', ShowController::class, '__invoke');
+Route::post('/accounts', CreateController::class, '__invoke');
+Route::delete('/accounts', DeleteByArrayController::class, '__invoke');
+
+
 Route::delete('/accounts/{id}/destroy', [AccountController::class, 'destroy']);
 Route::post('/accounts/import', [AccountController::class, 'importTransactions']);
-Route::resource('/accounts', AccountController::class)->except(['destroy']);
 
 
 /*
